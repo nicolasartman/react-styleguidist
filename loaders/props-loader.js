@@ -36,8 +36,7 @@ module.exports = function(source) {
 	parsedProps = castArray(parsedProps);
 
 	// Keep only public methods
-	parsedProps = parsedProps.map(prop => ({
-		...prop,
+	parsedProps = parsedProps.map(prop => Object.assign(prop, {
 		methods: prop.methods.filter(method => {
 			const doclets = method.docblock && reactDocs.utils.docblock.getDoclets(method.docblock);
 			return doclets && doclets.public;
