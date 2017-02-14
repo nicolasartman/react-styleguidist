@@ -46,11 +46,11 @@ export default class Preview extends Component {
 			// 1. Use setter/with to call our callback function when user write `initialState = {...}`
 			// 2. Wrap code in JSON.stringify/eval to catch the component and return it
 			const exampleComponentCode = `
-				var stateWrapper = {
+				var stateWrapper = Object.assign({}, {
 					set initialState(value) {
 						__setInitialState(value)
 					},
-				}
+				}, window.ReactStyleguidistComponents)
 				with (stateWrapper) {
 					return eval(${JSON.stringify(compiledCode)})
 				}

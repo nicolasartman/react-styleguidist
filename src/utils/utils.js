@@ -17,10 +17,16 @@ export function setComponentsNames(components) {
 }
 
 export function globalizeComponents(components) {
+	// Putting all components in a namespace to avoid accidentally overriding something like window.Map
+	global.ReactStyleguidistComponents = global.ReactStyleguidistComponents || {};
 	components.map((component) => {
-		global[component.name] = (!component.props || !component.props.path || component.props.path === 'default')
-			? (component.module.default || component.module)
-			: component.module[component.props.path];
+		// If this component is already defined then it is done by the user and they most probably know what they're doing
+		if (typeof global.ReactStyleguidistComponents[component.name] === 'undefined') {
+			global.ReactStyleguidistComponents[component.name] =
+				(!component.props || !component.props.path || component.props.path === 'default')
+				? (component.module.default || component.module)
+				: component.module[component.props.path];
+		}
 	});
 }
 
