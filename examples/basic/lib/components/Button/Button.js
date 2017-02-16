@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import s from './Button.css';
+import s from './Button.scss';
 
 /**
  * The only true button.
